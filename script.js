@@ -3,6 +3,7 @@ const yesBtn = document.getElementById("yesBtn");
 const hearts = document.getElementById("hearts");
 const music = document.getElementById("music");
 const timerEl = document.getElementById("timer");
+const messageEl = document.getElementById("message"); // NEW: message div
 
 // ----- NO BUTTON ESCAPE -----
 document.addEventListener("mousemove", (e) => {
@@ -29,7 +30,6 @@ function moveNoButton() {
   noBtn.style.left = `${x}px`;
   noBtn.style.top = `${y}px`;
 }
-
 
 // ----- HEART EXPLOSION -----
 function explodeHearts() {
@@ -60,6 +60,13 @@ const countdown = setInterval(() => {
 
   if (time === 0) {
     clearInterval(countdown);
+
+    // Stop NO button from moving (optional)
+    document.removeEventListener("mousemove", moveNoButton);
+
     explodeHearts();
+
+    // Show funny rejection message
+    messageEl.innerHTML = "<h1>Rejected 💔</h1>";
   }
 }, 1000);
