@@ -3,9 +3,9 @@ const yesBtn = document.getElementById("yesBtn");
 const hearts = document.getElementById("hearts");
 const music = document.getElementById("music");
 const timerEl = document.getElementById("timer");
-const messageEl = document.getElementById("message"); // NEW: message div
+const messageEl = document.getElementById("message"); // message div
 
-// ----- NO BUTTON ESCAPE -----
+// ----- NO BUTTON WIGGLE -----
 document.addEventListener("mousemove", (e) => {
   const rect = noBtn.getBoundingClientRect();
   const distance = Math.hypot(
@@ -14,21 +14,28 @@ document.addEventListener("mousemove", (e) => {
   );
 
   if (distance < 120) {
-    moveNoButton();
+    wiggleNo();
   }
 });
 
-function moveNoButton() {
+function wiggleNo() {
+  const maxShift = 50; // max pixels to move in any direction
+
+  // Get current position
+  let currentX = noBtn.offsetLeft;
+  let currentY = noBtn.offsetTop;
+
+  // Random small shift
+  const shiftX = (Math.random() - 0.5) * maxShift; // -25 to +25
+  const shiftY = (Math.random() - 0.5) * maxShift; // -25 to +25
+
+  // Clamp inside window
   const margin = 20;
+  const newX = Math.min(Math.max(currentX + shiftX, margin), window.innerWidth - noBtn.offsetWidth - margin);
+  const newY = Math.min(Math.max(currentY + shiftY, margin), window.innerHeight - noBtn.offsetHeight - margin);
 
-  const maxX = window.innerWidth - noBtn.offsetWidth - margin;
-  const maxY = window.innerHeight - noBtn.offsetHeight - margin;
-
-  const x = Math.random() * maxX + margin;
-  const y = Math.random() * maxY + margin;
-
-  noBtn.style.left = `${x}px`;
-  noBtn.style.top = `${y}px`;
+  noBtn.style.left = `${newX}px`;
+  noBtn.style.top = `${newY}px`;
 }
 
 // ----- HEART EXPLOSION -----
@@ -61,12 +68,12 @@ const countdown = setInterval(() => {
   if (time === 0) {
     clearInterval(countdown);
 
-    // Stop NO button from moving (optional)
-    document.removeEventListener("mousemove", moveNoButton);
-
     explodeHearts();
 
-    // Show funny rejection message
+    // Show rejection message
     messageEl.innerHTML = "<h1>Rejected 💔</h1>";
+    messageEl.style.fontSize = "2rem";
+    messageEl.style.marginTop = "20px";
+    messageEl.style.color = "#e63946";
   }
 }, 1000);
