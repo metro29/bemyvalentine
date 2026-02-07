@@ -18,13 +18,18 @@ document.addEventListener("mousemove", (e) => {
 });
 
 function moveNoButton() {
-  const padding = 20;
-  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding);
-  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding);
+  const margin = 20;
+
+  const maxX = window.innerWidth - noBtn.offsetWidth - margin;
+  const maxY = window.innerHeight - noBtn.offsetHeight - margin;
+
+  const x = Math.random() * maxX + margin;
+  const y = Math.random() * maxY + margin;
 
   noBtn.style.left = `${x}px`;
   noBtn.style.top = `${y}px`;
 }
+
 
 // ----- HEART EXPLOSION -----
 function explodeHearts() {
