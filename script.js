@@ -60,10 +60,10 @@ yesBtn.addEventListener("click", () => {
 });
 
 // ----- TIMER -----
-let time = 10;
+let time = 15;
 const countdown = setInterval(() => {
   time--;
-  timerEl.textContent = `00:${time < 10 ? "0" + time : time}`;
+  timerEl.textContent = `00:${time < 15 ? "0" + time : time}`;
 
   if (time === 0) {
     clearInterval(countdown);
